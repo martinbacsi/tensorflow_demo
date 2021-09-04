@@ -3,7 +3,7 @@ import pandas as pd
 from keras import regularizers
 from keras import layers
 import numpy as np
-import urllib
+import urllib.request
 import os.path
 import random
 
@@ -16,7 +16,7 @@ batch_size = 10
 #download data file if not present
 data_file = 'wdbc.data'
 if not os.path.isfile(data_file):
-    urllib.urlretrieve("http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/" + data_file, data_file)
+    urllib.request.urlretrieve("http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/" + data_file, data_file)
 train_data = pd.read_csv(data_file,  delimiter=',', index_col=0, header=None)
 
 #add onehot labels
