@@ -110,6 +110,8 @@ model.fit(train_x, train_y, epochs=training_epochs, batch_size=batch_size, valid
 _, no_dropout_acc = model.evaluate(test_x, test_y)
 
 #train model with dropout layer, and save tensorboard logs into ./tensorboard_dropout folder
+#a model with a dropout layer should achieve better accuracy on test and validation sets,
+#as it reduces overfitting, and help better generalization
 tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir="./tensorboard_dropout", histogram_freq=1)
 model2 = build_model(use_dropout = True)
 model2.fit(train_x, train_y, epochs=training_epochs, batch_size=batch_size, validation_data=(val_x, val_y), callbacks=[tensorboard_callback])
@@ -120,3 +122,12 @@ _, droupout_acc = model2.evaluate(test_x, test_y)
 print("summary:")
 print(f"model without dropout layer achieved {no_dropout_acc*100}% test accuracy.")
 print(f"model with dropout layer achieved {droupout_acc*100}% test accuracy.")  
+
+if droupout_acc == no_dropout_acc:
+    print("there is no difference between the models trained with and without dropout layer")
+
+if droupout_acc > no_dropout_acc:
+    print("the model trained with dropout layer is more accurate, than the model trained without one")
+
+if droupout_acc < no_dropout_acc:
+    print("the model trained with no dropout layer is more accurate, than the model trained with one")
